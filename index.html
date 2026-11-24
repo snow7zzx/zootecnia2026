@@ -193,8 +193,8 @@ mat('plastic',8,8,cols(['#1d1d1f','#262628']));
 mat('wool',16,16,cols(['#f1f1ec','#e4e4dc','#fafaf6']));
 mat('gir',32,32,hide('#f3ede2','#1f1a18',11));mat('gir2',32,32,hide('#f1e7d6','#8c4a27',9));mat('gir3',32,32,hide('#e9dcc6','#4a2b1a',7));
 mat('goatA',32,32,hide('#c9a46a','#f2e8d4',6));mat('goatB',32,32,hide('#3a2c24','#e9e1d3',5));
-C('pink',0xe9a3a0);C('blk',0x1c1c1c);C('glass',0x9fd3ee,Q.t?{transparent:true,opacity:.5}:{});C('red',0xb52a22);C('white',0xf2f2f2);C('sface',0x3a3430);C('yellow',0xf2d12a);C('tan',0xc08a4a);C('horse',0x7a4a2a);C('mane',0x2a1a10);C('rock',0x8a8a84);C('jeans',0x3b5b8c);C('skin',0xe0a97c);C('boot',0x4a2e1a);C('hatm',0xe8d28a);C('blkdk',0x2a2a2a);
-C('sorg',0x9c4a2a);C('pkb',0x1f4e8c);C('asph',0x4b4d52);C('pond',0x1d3550,{transparent:true,opacity:.93});C('hill',0x6f8f62);C('hill2',0x8a9a6a);C('water',0x3b8fc4,{transparent:true,opacity:.85});
+C('pink',0xe9a3a0);C('jd',0x2f7a2c);C('orange',0xe0701b);C('liner',0x0e1a33);C('blk',0x1c1c1c);C('glass',0x9fd3ee,Q.t?{transparent:true,opacity:.5}:{});C('red',0xb52a22);C('white',0xf2f2f2);C('sface',0x3a3430);C('yellow',0xf2d12a);C('tan',0xc08a4a);C('horse',0x7a4a2a);C('mane',0x2a1a10);C('rock',0x8a8a84);C('jeans',0x3b5b8c);C('skin',0xe0a97c);C('boot',0x4a2e1a);C('hatm',0xe8d28a);C('blkdk',0x2a2a2a);
+C('sorg',0x9c4a2a);C('pkb',0x8e1a26);C('asph',0x4b4d52);C('pond',0x16222e,{transparent:true,opacity:.93});C('hill',0x6f8f62);C('hill2',0x8a9a6a);C('water',0x3b8fc4,{transparent:true,opacity:.85});
 // ---------- geometria (mesclada por material) ----------
 let B={},NOCOL=false,TX=0,TZ=0,ROT=0;const W=[];
 const tp=(x,z)=>ROT?[z+TX,-x+TZ]:[x+TX,z+TZ];
@@ -246,13 +246,15 @@ function house(o){const{cx,cz,w,d,h}=o,t=.5,dw=3.4,dh=3.2,wm=o.wm||'wall',dn=o.d
  [-1,1].forEach(k=>[-d/4,d/4].forEach(dz=>box(cx+k*w/2,1.6,cz+dz,t+.1,1.3,2,'glass')));
  for(let i=0;i<3;i++)box(cx,h+i*.7,cz,w+2,.7,(d+2)*(1-i*.3),(o.rm||'roofg'),{t:2});
  label(o.name,cx,h+4.5,cz,1)}
+function wallX(z,x0,x1,g,h,m,t,li){m=m||'wall';t=t||.5;if(li===undefined)li=h>=3.4;let a=x0;g.slice().sort((p,q)=>p[0]-q[0]).forEach(e=>{if(e[0]>a)box((a+e[0])/2,0,z,e[0]-a,h,t,m);if(li&&h>3.2)box((e[0]+e[1])/2,3.2,z,e[1]-e[0],h-3.2,t,m);a=e[1]});if(x1>a)box((a+x1)/2,0,z,x1-a,h,t,m)}
+function wallZ(x,z0,z1,g,h,m,t,li){m=m||'wall';t=t||.5;if(li===undefined)li=h>=3.4;let a=z0;g.slice().sort((p,q)=>p[0]-q[0]).forEach(e=>{if(e[0]>a)box(x,0,(a+e[0])/2,t,h,e[0]-a,m);if(li&&h>3.2)box(x,3.2,(e[0]+e[1])/2,t,h-3.2,e[1]-e[0],m);a=e[1]});if(z1>a)box(x,0,(a+z1)/2,t,h,z1-a,m)}
 // ---------- mundo (vista aerea: estrada a esquerda, barracoes verdes, casa sede, acude e milharais) ----------
 const mkA=(ox,oz,rot,nx,nz)=>({rot,tx:nx-(rot?oz:ox),tz:nz-(rot?-ox:oz)});
 const P=(a,x,z)=>a.rot?[z+a.tx,-x+a.tz]:[x+a.tx,z+a.tz];
 const Qi=(a,X,Z)=>a.rot?[-(Z-a.tz),X-a.tx]:[X-a.tx,Z-a.tz];
 function at(a,fn){const s=[TX,TZ,ROT];TX=a.tx;TZ=a.tz;ROT=a.rot;fn();[TX,TZ,ROT]=s}
 const inFarm=(x,z,m)=>{m=m||0;return x>-80-m&&x<205+m&&z>-290-m&&z<170+m};
-const MR=mkA(0,22,1,40,-165),FSA=mkA(-88,122,1,-8,-165),CUR=mkA(-48,42,0,-6,-5),BEZ=mkA(48,40,0,42,-5),APR=mkA(88,35,0,88,-5),GRA=mkA(-48,80,0,30,-212),SIL=mkA(48,85,0,84,-205),CAS=mkA(-24,100,0,10,-88);
+const MR=mkA(0,22,0,2.5,-222),FSA=mkA(-88,122,0,-8,-184),CUR=mkA(-48,42,0,-6,-5),BEZ=mkA(48,40,0,42,-5),APR=mkA(88,35,0,88,-5),GRA=mkA(-48,80,0,34,-186),SIL=mkA(48,85,0,84,-205),CAS=mkA(-24,100,0,10,-88);
 const GATE=[-46,100],MX=-46,MZ=84;
 const WAN=[];
 const WT={cow:{f:(s)=>cow(0,0,0,s||1,0),r:.8,spd:1.1,pause:3.5,fq:6,bob:.04,graze:1},sheep:{f:()=>sheep(0,0,0),r:.45,spd:1.3,pause:3,fq:8,bob:.04,graze:1},chicken:{f:()=>chicken(0,0,0),r:.2,spd:1.6,pause:1.2,fq:14,bob:.03,peck:1},dog:{f:()=>dog(0,0,0),r:.4,spd:2.4,pause:4,fq:10,bob:.05},horse:{f:()=>horse(0,0,0),r:.9,spd:1.4,pause:5,fq:6,bob:.04,graze:1}};
@@ -267,12 +269,14 @@ box(-59,0,-60,6.4,.1,420,'asph');box(-62.1,0,-60,.25,.12,420,'white');box(-55.9,
 for(let z=-260;z<150;z+=10)box(-59,0,z,.2,.11,4,'yellow');
 for(let z=140;z>-260;z-=22){box(-64,0,z,.3,7,.3,'trunk');box(-64,6.3,z,2.2,.2,.2,'trunk');box(-64,6.6,z-11,.05,.05,22,'blkdk')}
 for(let z=-258;z<=146;z+=15){const x=-70+(R()-.5)*6,r=R();r<.45?cerrado(x,z):r<.75?euc(x,z):ipe(x,z)}
+// caminhao de coleta de leite na estrada (slide 16)
+box(-60.5,.5,-206,2.6,2.6,6,'white');box(-60.5,.5,-201.4,2.6,2.2,2.2,'steel');[-1,1].forEach(q=>[-207.5,-201.5].forEach(z=>box(-60.5+q*1.2,0,z,.3,1,1,'blk')));label('Caminhão de coleta de leite',-60.5,5,-206,.5);
 // corredores de terra
 const ln=(x,z,w,d)=>box(x,0,z,w,.08,d,'earth',{t:3});
-ln(-34,-60,5,324);ln(-45,100,22,5);ln(-2,-198,64,4);ln(-12,-76,48,4);ln(38,-24,150,4);ln(14,18,96,4);
-ln(LNX,-120,4,264);ln(130,LNZ,44,4);ln(DX,-139,4,54);ln(78,DZ,60,4);
+ln(-34,-60,5,324);ln(-45,100,22,5);ln(-12,-76,48,4);ln(38,-24,150,4);ln(14,18,96,4);
+ln(LNX,-120,4,264);ln(130,LNZ,44,4);ln(50,LNZ,116,4);
 // patio de concreto e pista de trato entre os dois barracoes longos
-box(15,0,-123,84,.07,24,'conc',{t:2});box(18,0,-165,28,.07,64,'earth',{t:2});box(18,.07,-168,6,.5,52,'hay');
+box(-8,0,-149,60,.07,30,'conc',{t:2});box(-8,0,-162.5,4.4,.08,101,'conc');
 // portaria
 box(-52,0,97,.8,3.5,.8,'trunk');box(-52,0,103,.8,3.5,.8,'trunk');box(-52,3.2,100,.3,.3,6.8,'trunk');label('Cabanha Minas Douradas',-52,5,100,1.3);
 // PIQUETES DE BOVINOS (2 colunas, corredor central)
@@ -287,13 +291,21 @@ const CP=[],PM=['grass','grass','dry','grass','dry','grass'],PWd=38,PDp=44;
  wan('cow',cx+R()*8,cz+R()*8,{x0:cx-16,x1:cx+14,z0:cz-16,z1:cz+8},.55);
  const hc=mkCow(cx-6+R()*12,cz-2+R()*10,rr(),1,0,'herd');hc.hx=hc.x;hc.hz=hc.z;hc.hry=hc.ry;hc.pq=i;herd.push(hc);
  CP.push({cx,cz,gi:c===0?gx-3:gx+3,gz:cz+11})}));
-// SALA DE ORDENHA (barracao longo da direita)
+// SALA DE ORDENHA (slide 19: sala de espera, espinha de peixe, sala do tanque e deposito)
 at(MR,()=>{
-house({cx:0,cz:22,w:28,d:16,h:4.5,doors:['n','s'],name:'Sala de ordenha'});
-[-1,1].forEach(k=>{box(k*6.5,0,22,5,.5,11,'conc');box(k*3.9,.5,22,.15,1.1,11,'steel');
- [-4,-1.5,1,3.5].forEach(z=>{box(k*3.5,1,22+z,.3,.4,.3,'steel');box(k*3.5,.6,22+z,.08,.4,.08,'blk')});
- });
-box(-9,0,17,3.2,2.2,2,'steel');label('Tanque de resfriamento',-9,3.4,19,.55);box(9,0,16.5,2,1,1,'white');
+const H=4.5;
+box(0,0,22,32,.06,18,'conc',{t:2});
+wallX(13,-16,16,[],H);wallX(31,-16,16,[[-12.35,-8.65]],H);
+wallZ(-16,13,31,[[19.5,24]],H);wallZ(16,13,31,[[26.5,29.5]],H);
+wallZ(-5,13,31,[[20,24]],H);wallZ(8,13,31,[[16,20],[26,29.5]],H);wallX(23,8,16,[],H);
+[-10,0,10].forEach(x=>box(x,1.6,13,2.2,1.3,.7,'glass'));[0,10].forEach(x=>box(x,1.6,31,2.2,1.3,.7,'glass'));
+for(let i=0;i<3;i++)box(0,H+i*.7,22,34,.7,20*(1-i*.3),'roofg',{t:2});
+box(1.5,0,16,13,.5,6,'conc',{t:2});box(1.5,0,28,13,.5,6,'conc',{t:2});box(1.5,.07,22,12,.02,.25,'water');
+[16,28].forEach((zc,r)=>{const a=r?-.55:PI-.55;for(let i=0;i<=6;i++)box(0,.5,0,.07,1,4.2,'steel',{ry:a,ox:-4.8+2*i,oz:zc});box(1.5,.5,r?30.2:13.8,12,.5,.5,'steel')});
+[[-11.8,18.6],[-9.3,18.6],[-11.8,23.3],[-9.3,23.3]].forEach(p=>{box(p[0],0,p[1],.25,2.4,.25,'blkdk');box(p[0],2.4,p[1],.7,.12,.7,'water')});
+box(12,.5,14.9,5.6,1.8,1.8,'steel');[10,14].forEach(x=>box(x,0,14.9,.25,.5,.25,'steel'));box(14.8,0,20.8,1.4,1,1,'white');
+box(12,0,23.7,6,2.2,.8,'wood');for(let i=0;i<5;i++){box(9.5+i*1.2,.9,24.2,.8,.3,.3,'white');box(9.5+i*1.2,1.5,24.2,.8,.3,.3,'steel')}
+label('Sala de ordenha',0,9,22,1);label('Sala de espera',-10.5,3.8,22,.5);label('Tanque de resfriamento',12,3.4,19,.55);label('Farmácia · depósito',12,3.4,28,.5);
 });
 // CURRAL (barracao com tronco)
 at(CUR,()=>{
@@ -301,9 +313,9 @@ fence(-62,31,-42,31);fence(-38,31,-34,31);fence(-62,53,-34,53);fence(-62,31,-62,
 box(-48,0,42,28,.04,22,'earth',{t:2});
 box(-52.8,0,40,.2,1.7,8,'wood');box(-51.2,0,40,.2,1.7,8,'wood');box(-52,1.5,36,1.8,.2,.2,'steel');label('Tronco de contenção',-52,3.3,40,.55);
 box(-56,0,46,2.4,.15,3.6,'steel');box(-44,0,52,8,.6,.9,'wood');box(-44,.6,52,7.5,.1,.6,'white');
-box(-32,0,42,2,.5,6,'wood');box(-30,0,42,2,1,6,'wood');label('Curral · manejo sanitário',-48,4,36,.8);
+box(-32,0,42,2,.5,6,'wood');box(-30,0,42,2,1,6,'wood');label('Curral · manejo sanitário',-48,3,36,.8);
 [[-58,36],[-46,38],[-56,50],[-40,46],[-48,45]].forEach(p=>cow(p[0],p[1],rr()));cow(-44,42,0,.55);cow(-58,43,PI,.55);
- [[-55,36],[-41,36],[-55,46],[-41,46]].forEach(p=>box(p[0],0,p[1],.4,3.6,.4,'trunk'));box(-48,3.6,41,16,.3,12,'roofg',{t:2});[-47.5,-40.5].forEach(px=>[50.2,53.8].forEach(pz=>box(px,0,pz,.3,2.8,.3,'trunk')));box(-44,2.8,52,9,.25,4.6,'roofg',{t:2});
+ [[-62,31],[-48,31],[-34,31],[-62,53],[-48,53],[-34,53],[-62,42],[-34,42]].forEach(p=>box(p[0],0,p[1],.4,4,.4,'trunk'));for(let i=0;i<3;i++)box(-48,4+i*.35,42,32*(1-i*.15),.35,26*(1-i*.3),'roofg',{t:2});
 });
 // BEZERREIRO
 at(BEZ,()=>{
@@ -328,14 +340,23 @@ box(48,.06,86,9.6,2,22,'silage');box(48,2.06,86,9.8,.08,22,'plastic');
 for(let i=0;i<4;i++)for(let j=0;j<9;j++)box(44.5+i*3,2.14,76+j*2.4,1,.35,1,'blk');
 label('Silagem (bunker)',48,5,85,.8);
 });
-// APRISCO
+// APRISCO (slide 22: baias, corredor central, creep feeding e solario)
 at(APR,()=>{
-house({cx:88,cz:35,w:26,d:14,h:3.5,doors:['n','s'],fl:'ripado',name:'Aprisco (ovinos Santa Inês)'});
-box(88,0,35,.2,1.3,11,'wood');box(82,0,29.5,8,.6,.8,'wood');box(94,0,29.5,8,.6,.8,'wood');box(82,.55,40,2,.5,1,'water');box(94,.55,40,2,.5,1,'water');
-label('Matrizes',82,2.8,35,.5);label('Cria · creep feeding (0 a 60 dias)',94,2.8,35,.5);
-for(let i=0;i<12;i++){const q=P(APR,77+R()*9,31+R()*8),a=P(APR,76.5,29.5),b=P(APR,87,40.5);wan('sheep',q[0],q[1],{x0:a[0],x1:b[0],z0:a[1],z1:b[1]})}
+const H=3.5;
+box(88,0,35,26,.06,14,'ripado',{t:2});
+wallX(28,75,101,[],H);wallX(42,75,101,[[82.2,84.8],[90,93.5]],H);wallZ(75,28,42,[[34.3,36.7]],H);wallZ(101,28,42,[[30,32.5],[38.5,41]],H);
+[80,88,96].forEach(x=>box(x,1.6,28,2.4,1.3,.7,'glass'));
+for(let i=0;i<3;i++)box(88,H+i*.7,35,28,.7,16*(1-i*.3),'roofg',{t:2});
+wallZ(87,28.5,34.2,[],1.2,'wood',.1);wallZ(95.25,28.5,34.2,[],1.2,'wood',.1);
+wallX(34.2,75.5,100.5,[[79.5,82],[89,91.5],[96.5,99]],1.2,'wood',.1);
+wallX(36.8,75.5,100.5,[[76.3,77.9],[79.5,81.1],[82.7,84.3],[85.9,87.5],[89.5,92],[96.5,99]],1.2,'wood',.1);
+[78.7,81.9,85.1,88.3,95.25].forEach(x=>wallZ(x,36.8,41.5,[],1.2,'wood',.1));
+box(76.8,0,29.2,1.6,.5,1.6,'wood');box(76.8,.45,29.2,1.4,.06,1.4,'water');box(94,0,29.2,1.6,.5,1.6,'wood');box(94,.45,29.2,1.4,.06,1.4,'water');
+box(81.5,0,33.3,8,.5,.7,'wood');box(91,0,33.3,5,.5,.7,'wood');box(98,0,29.4,3.6,.5,.7,'orange');
+label('Matrizes',81,2.8,31,.45);label('Matrizes · gestação',91,2.8,31,.4);label('Creep feeding (0 a 60 dias)',98,2.8,32,.4);label('Baias de maternidade',82,2.8,39.5,.4);label('Desmame',92,2.8,39.5,.4);
+for(let i=0;i<12;i++){const A=i<7,q=P(APR,A?77+R()*9:88+R()*6,29.5+R()*3.5),a=P(APR,A?76:87.5,29),b=P(APR,A?86.5:94.5,33.5);wan('sheep',q[0],q[1],{x0:a[0],x1:b[0],z0:a[1],z1:b[1]})}
 fence(75,54,101,54);fence(75,42,75,54);fence(101,42,101,54);box(88,0,48,26,.04,12,'earth',{t:2});fence(88,42,88,54);label('Recria · 60 dias a 5 meses',81,2.8,48,.5);label('Terminação · 5 a 8 meses',95,2.8,48,.5);
-
+box(106,0,35,10,.04,14,'earth',{t:2});fence(101,28,111,28);fence(111,28,111,42);fence(101,42,111,42);label('Solário',106,2.8,35,.45);
 });
 // 10 PIQUETES DE OVINOS (0,5 ha cada · Tifton 85)
 const SPC=[],OPQ=[];
@@ -345,14 +366,18 @@ const SPC=[],OPQ=[];
  label('Piquete ovinos '+(i+1)+' · 0,5 ha',cx,3.2,cz,.45);
  box(cx-10,0,cz-4,3,.4,.8,'wood');box(cx-10,0,cz+3,1.4,.3,1.4,'conc');box(cx-10,.28,cz+3,1.2,.05,1.2,'water');[cx-12.5,cx-7.5].forEach(px=>[cz-5.5,cz+4.5].forEach(pz=>box(px,0,pz,.3,2.4,.3,'trunk')));box(cx-10,2.4,cz-.5,6,.25,11,'roofg',{t:2});
  SPC.push([cx,cz]);OPQ.push({alt:i<1?14:i<2?22:30})}));
-// FREE STALL (barracao longo da esquerda)
-at(FSA,()=>{
-{const cx=-88,cz=122,w=60,d=22;box(cx,5.2,cz,w+4,.3,d+4,'roofg',{t:2});[-1,1].forEach(s=>{for(let x=-w/2;x<=w/2;x+=10)box(cx+x,0,cz+s*(d/2),.5,5.2,.5,'trunk')});
- box(cx,0,cz,w,.08,4,'conc');[-1,1].forEach(s=>{box(cx,0,cz+s*3,w,.5,.9,'wood');box(cx,.5,cz+s*3,w-.4,.08,.6,'silage');box(cx,0,cz+s*(d/2-4),w,.06,8,'hay');
-  for(let x=-w/2+1;x<=w/2;x+=2.2)box(cx+x,.5,cz+s*(d/2-8.2),.1,.9,2.6,'steel');
-  for(let x=-w/2+2;x<w/2-1;x+=2.2)cow(cx+x+R()*.4,cz+s*(d/2-5)+(R()-.5)*1.2,s>0?PI:0)});
- for(let x=-24;x<=24;x+=12)box(cx+x,4.6,cz,1.8,1.8,.3,'steel');label('Free stall · pista de trato',cx,6.2,cz,1)}
-});
+// FREE STALL (slide 17: duas alas, pista de trato no centro, 2 fileiras de camas x 14 por ala, 4 bebedouros e ventiladores)
+{const FX=-8,FZ=-184,L=34,CW=L/14;
+ box(FX,0,FZ,26,.07,L+6,'earth',{t:2});box(FX,0,FZ,4.4,.08,L+4,'conc');box(FX,.08,FZ,2.8,.4,L-2,'hay');
+ [-1,1].forEach(s=>{
+  box(FX+s*7.2,.07,FZ,2.4,.04,L,'hay');box(FX+s*9.6,.07,FZ,2.4,.04,L,'hay');box(FX+s*4.7,.07,FZ,2.6,.04,L,'conc',{t:2});
+  box(FX+s*3,0,FZ,.9,.5,L,'wood');box(FX+s*3,.5,FZ,.6,.08,L-.4,'silage');
+  box(FX+s*7.2,5.2,FZ,10,.3,L+4,'roofg',{t:2});
+  for(let k=0;k<5;k++){const pz=FZ-L/2-2+k*(L+4)/4;box(FX+s*11.4,0,pz,.5,5.2,.5,'trunk');box(FX+s*3,0,pz,.5,5.2,.5,'trunk');box(FX+s*7.2,4.2,FZ-12+k*6,.4,1.8,1.8,'steel')}
+  [7.2,9.6].forEach(r=>{for(let k=0;k<=14;k++)box(FX+s*r,.07,FZ-L/2+k*CW,2.3,.8,.07,'steel');
+   for(let k=0;k<14;k++)cow(FX+s*r+(R()-.5)*.3,FZ-L/2+CW*(k+.5)+(R()-.5)*.2,((r<8)===(s>0))?-PI/2:PI/2)});
+  [-1,1].forEach(e=>{box(FX+s*8,0,FZ+e*18.2,6,.6,1.2,'conc');box(FX+s*8,.55,FZ+e*18.2,5.6,.06,.9,'water')})});
+ label('Free stall · pista de trato',FX,6.8,FZ,1)}
 // GALPAO DE FENO
 house({cx:92,cz:-135,w:22,d:18,h:5,doors:['n','s'],name:'Galpão de feno'});
 for(let k=0;k<3;k++)for(let j=0;j<4-k;j++)box(84+j*3.2+k*1.6,k*.7,-139,2.8,.7,1.6,'hay');
@@ -370,17 +395,20 @@ box(-24,0,106.5,12,.2,2.5,'wood');[-29.5,-18.5].forEach(x=>box(x,0,107.5,.3,3,.3
 [[-35,111],[-33,111],[-35,113],[-33,113]].forEach(p=>box(p[0],0,p[1],.25,5,.25,'conc'));box(-34,5,112,3.4,2,3.4,'steel');box(-34,7,112,3.6,.2,3.6,'conc');label('Caixa d\'água',-34,9.5,112,.5);
 box(-12,0,112,3,1.6,2.2,'wood');box(-12,1.6,112,3.6,.25,2.8,'roof',{t:2});for(let i=0;i<8;i++){const q=P(CAS,-12+(R()-.5)*8,115+R()*4),a=P(CAS,-30,108),b=P(CAS,-2,122);wan('chicken',q[0],q[1],{x0:a[0],x1:b[0],z0:a[1],z1:b[1]})}
 {const q=P(CAS,14,104),a=P(CAS,10,100),b=P(CAS,19,108);wan('horse',q[0],q[1],{x0:a[0],x1:b[0],z0:a[1],z1:b[1]})}box(16.5,0,104,.3,1.6,.3,'trunk');for(const p of[[-14,104],[-18,108]]){const q=P(CAS,p[0],p[1]),a=P(CAS,-30,108),b=P(CAS,-4,122);wan('dog',q[0],q[1],{x0:a[0],x1:b[0],z0:a[1],z1:b[1]})}
+fence(-38,90,6,90);fence(-38,90,-38,109);fence(6,90,6,109);fence(-38,109,-26,109);fence(-22,109,6,109);
+const atv=(x,z)=>{[-.6,.6].forEach(dx=>[-.55,.55].forEach(dz=>box(x+dx,0,z+dz,.7,.7,.3,'blk')));box(x,.45,z,1.8,.5,.8,'orange');box(x+.2,.95,z,.7,.2,.5,'blkdk');box(x+.5,1.0,z,.1,.1,1,'blkdk');box(x-.7,.95,z,.6,.1,.7,'blkdk')};atv(-45.8,101.8);atv(-45.8,105);
 });
 // GALPAO DE MAQUINAS (aberto) e TRATOR
 [-20,4].forEach(x=>[31,49].forEach(z=>box(x,0,z,.6,4.6,.6,'trunk')));box(-8,4.6,40,28,.3,20,'roofg',{t:2});box(-8,0,40,26,.06,18,'conc',{t:2});box(-8,0,60,28,.05,20,'earth',{t:2});
 box(-16,0,45,3,1,2,'steel');box(-17,1,45,1,.6,1,'steel');label('Galpão de máquinas',-8,6.2,40,.7);
 const TRX=-8,TRZ=38;
-const trk=build(()=>{box(0,.9,0,1.8,1.4,3,'red');box(0,1.1,2,1.4,1,1.8,'red');[-.8,.8].forEach(x=>[-1.7,-.3].forEach(z=>box(x,2.3,z,.12,2,.12,'red')));box(0,4.3,-1,1.9,.15,1.9,'red');box(0,2.3,-1,.9,.2,.8,'blkdk');box(0,2.5,-1.4,.9,.7,.15,'blkdk');box(0,2.9,-.2,.5,.08,.5,'blkdk');[-1.3,1.3].forEach(x=>{box(x,0,-.5,.5,1.6,1.6,'blk');box(x,0,2.3,.35,1,1,'blk')});box(.6,2.1,2,.15,1.6,.15,'blk')});
+const trk=build(()=>{box(0,.9,0,1.8,1.4,3,'jd');box(0,1.1,2,1.4,1,1.8,'jd');[-.8,.8].forEach(x=>[-1.7,-.3].forEach(z=>box(x,2.3,z,.12,2,.12,'jd')));box(0,4.3,-1,1.9,.15,1.9,'jd');box(0,2.3,-1,.9,.2,.8,'blkdk');box(0,2.5,-1.4,.9,.7,.15,'blkdk');box(0,2.9,-.2,.5,.08,.5,'blkdk');[-1.3,1.3].forEach(x=>{box(x,0,-.5,.5,1.6,1.6,'blk');box(x,0,2.3,.35,1,1,'blk')});box(.6,2.1,2,.15,1.6,.15,'blk')});
+box(-1,.5,44,5,.3,.5,'jd');box(-1,.5,44.9,5,.3,.5,'jd');for(let i=0;i<6;i++){box(-3.2+i*.9,.05,43.6,.12,.9,.9,'steel');box(-3.2+i*.9,.05,45.3,.12,.9,.9,'steel')}box(-4,.4,44.4,1.2,.2,.2,'jd');
 trk.position.set(TRX,0,TRZ);scene.add(trk);label('Trator · E para subir',TRX,6.5,TRZ,.55);
 let VH=null;
 const TR={g:trk,x:TRX,z:TRZ,h:0,v:0,on:false,pv:0,acc:9,fr:5,vmax:14,vsh:20,vrev:6,turn:1.3,seat:1,sy:2.5,cam:1.9,dm:3,hb:[-1.85,1.85,-1.9,3.2],pr:[[.9,3],[-.9,3],[.9,-1.6],[-.9,-1.6],[1.6,0],[-1.6,0],[0,3.2]],enter:'subir no trator',exit:'descer do trator',msg:'Trator: WASD dirige, Shift acelera, E desce'};
 // PICAPE (camionete)
-const PKX=-27,PKZ=88;
+const PKX=-11.5,PKZ=-90.5;
 const pkg=build(()=>{
  [-1,1].forEach(sx=>[-1,1].forEach(sz=>{box(sx*1.0,0,sz*1.65,.4,1.0,1.0,'blk');box(sx*1.22,.3,sz*1.65,.05,.4,.4,'steel')}));
  box(0,.7,0,2.0,.6,5.0,'pkb');box(0,1.3,1.7,1.9,.55,1.6,'pkb');box(0,1.3,-.1,1.9,1.1,1.8,'pkb');box(0,2.4,-.1,1.95,.08,1.9,'pkb');
@@ -389,12 +417,12 @@ const pkg=build(()=>{
  box(0,.65,2.55,2.1,.3,.2,'steel');box(0,.65,-2.58,2.1,.3,.2,'steel');box(0,1.45,2.5,.9,.3,.04,'blkdk');
  [-.7,.7].forEach(x=>{box(x,1.5,2.52,.35,.2,.06,'yellow');box(x*1.15,1.45,-2.58,.3,.2,.05,'red')});
  box(.5,.62,1.9,.9,.04,.04,'steel');box(-1.0,.95,.2,.05,.06,.5,'steel');box(1.0,.95,.2,.05,.06,.5,'steel')});
-pkg.position.set(PKX,0,PKZ);pkg.rotation.y=PI;scene.add(pkg);label('Picape · E para dirigir',PKX,4.5,PKZ,.55);
-const PK={g:pkg,x:PKX,z:PKZ,h:PI,v:0,on:false,pv:0,acc:15,fr:6,vmax:26,vsh:38,vrev:8,turn:1.7,seat:.2,sy:.9,cam:2.2,dm:3.2,hide:1,hb:[-1.2,1.2,-2.7,2.8],pr:[[1.1,2.7],[-1.1,2.7],[1.1,-2.7],[-1.1,-2.7],[1.3,0],[-1.3,0],[0,3]],enter:'entrar na picape',exit:'sair da picape',msg:'Picape: WASD dirige, Shift acelera, E sai'};
+pkg.position.set(PKX,0,PKZ);pkg.rotation.y=PI/2;scene.add(pkg);label('Picape · E para dirigir',PKX,4.5,PKZ,.55);
+const PK={g:pkg,x:PKX,z:PKZ,h:PI/2,v:0,on:false,pv:0,acc:15,fr:6,vmax:26,vsh:38,vrev:8,turn:1.7,seat:.2,sy:.9,cam:2.2,dm:3.2,hide:1,hb:[-1.2,1.2,-2.7,2.8],pr:[[1.1,2.7],[-1.1,2.7],[1.1,-2.7],[-1.1,-2.7],[1.3,0],[-1.3,0],[0,3]],enter:'entrar na picape',exit:'sair da picape',msg:'Picape: WASD dirige, Shift acelera, E sai'};
 const VEH=[TR,PK];
 // ACUDE (agua escura) e buritis
 box(100,0,48,70,.05,56,'earth');box(100,.05,48,64,.06,50,'pond');W.push([68,132,23,73]);
-[[64,22],[66,74],[134,24],[136,72],[100,20],[100,77]].forEach(p=>buriti(p[0],p[1]));label('Açude',100,4,48,.8);
+box(100,0,22.2,67,.5,1.6,'liner');box(100,0,73.8,67,.5,1.6,'liner');box(67.2,0,48,1.6,.5,52,'liner');box(132.8,0,48,1.6,.5,52,'liner');fence(62,17,138,17);fence(62,79,138,79);fence(138,17,138,79);fence(62,17,62,44);fence(62,52,62,79);label('Açude (tanque com lona)',100,4,48,.8);
 // MILHARAIS
 {const cf=(x0,x1,z0,z1)=>{NOCOL=true;const zc=(z0+z1)/2;box((x0+x1)/2,0,zc,x1-x0,.05,z1-z0,'earth',{t:2});for(let x=x0+1.5;x<x1;x+=3.2){box(x,.05,zc,1.1,1.7+R()*.3,z1-z0-2,'leaf',{flat:1});box(x,1.95,zc,.5,.15,z1-z0-3,'leafy',{flat:1})}NOCOL=false};cf(-54,44,108,150);cf(52,142,108,150)}
 {NOCOL=true;const sx0=146,sx1=200,sz0=22,sz1=70,zc=(sz0+sz1)/2;box((sx0+sx1)/2,0,zc,sx1-sx0,.05,sz1-sz0,'earth',{t:2});
@@ -446,7 +474,7 @@ const pdone={};let pdn=0,miss=0;
 const pf=()=>{const d=PD.filter(p=>p.due());return d.filter(p=>pdone[p.k]===dia).length+'/'+d.length};
 const pend2=()=>PD.filter(p=>p.due()).map(p=>(pdone[p.k]===dia?'✔ ':'◻ ')+p.t).join('<br>')||'Nenhuma pendência hoje';
 function perd(){calves.forEach(c=>{if(c.col===false){c.col=true;c.doente=true;toast('Bezerro sem colostro adoeceu')}});let n=0;PD.forEach(p=>{if(p.due()&&pdone[p.k]!==dia){n++;if(EFF[p.k])EFF[p.k]()}else if(p.due()&&OK[p.k])OK[p.k]()});miss+=n;if(n)toast('Pendências não feitas: '+n+' (risco sanitário)')}
-{const a=P(MR,9,12),b=P(APR,88,25);label('Caneca de fundo preto',a[0],3.4,a[1],.5);label('Manejo sanitário ovinos',b[0],3,b[1],.5)}
+{const a=P(MR,1.5,22),b=P(APR,88,25);label('Caneca de fundo preto',a[0],3.4,a[1],.5);label('Manejo sanitário ovinos',b[0],3,b[1],.5)}
 const sd={mast:0,verm:0,imun:0,cb:3,co:3},EFF={},OK={};let secaT=0;
 const ciclo=()=>(dia-1)%200;
 const VAC=[['Brucelose B19 (bezerras 3–8 meses)',90,10],['Clostridioses bovinos (2 doses, 30 dias)',180,20],['Raiva dos herbívoros',365,30],['IBR, BVD e leptospirose',180,45],['Exames de brucelose e tuberculose',365,5],['Clostridioses ovinos (reforço 30 dias antes do parto)',180,60],['Raiva dos ovinos',365,31]];
@@ -509,7 +537,7 @@ PD.push({k:'vo',get t(){return 'Vacinas dos ovinos: '+VXO.filter(v=>v.g()).map(v
 {k:'ex',t:'Exames anuais de brucelose e tuberculose do rebanho (veterinário cadastrado)',x:0,z:0,dur:4,due:()=>dia-exD>=365,fn:()=>{exD=dia}},
 {k:'bi',t:'Concentrado inicial e água limpa para os bezerros',x:0,z:0,dur:2.5,due:()=>true});
 Object.assign(EFF,{vo:()=>{sd.imun+=10},ex:()=>{sd.imun+=15},bi:()=>{calves.forEach(c=>{c.pen2=(c.pen2||0)+1.2});sd.imun+=2}});
-{const TM={cn:[MR,9,12],cm:[CUR,-56,46],ia:[CUR,-52,34],lp:[CUR,-46,36],fa:[APR,92,25],fl:[APR,84,25],vc:[CUR,-46,34],bz:[BEZ,48,30],ft:[FSA,-88,122],so:[APR,76,25],cr:[APR,96,25],fe:[GRA,-48,72],rf:[APR,80,25],rp:[GRA,-44,72],ca:[CUR,-60,40],vb:[BEZ,52,30],vm:[APR,88,25],pd:[APR,72,25],ap:[APR,100,25],li:[APR,68,25],vs:[CUR,-44,60],tv:[CUR,-44,56],nv:[CUR,-44,64],im:[CAS,-24,110],sl:[GRA,-60,72],ci:[SIL,36,85],vo:[APR,84,27],ex:[CUR,-50,36],bi:[BEZ,44,30]};
+{const TM={cn:[MR,1.5,22],cm:[CUR,-56,46],ia:[CUR,-52,34],lp:[CUR,-46,36],fa:[APR,92,25],fl:[APR,84,25],vc:[CUR,-46,34],bz:[BEZ,48,30],ft:[FSA,-88,122],so:[APR,76,25],cr:[APR,96,25],fe:[GRA,-48,72],rf:[APR,80,25],rp:[GRA,-44,72],ca:[CUR,-60,40],vb:[BEZ,52,30],vm:[APR,88,25],pd:[APR,72,25],ap:[APR,100,25],li:[APR,68,25],vs:[CUR,-44,60],tv:[CUR,-44,56],nv:[CUR,-44,64],im:[CAS,-24,110],sl:[GRA,-60,72],ci:[SIL,36,85],vo:[APR,84,27],ex:[CUR,-50,36],bi:[BEZ,44,30]};
  PD.forEach(p=>{const m=TM[p.k];if(m){const q=P(m[0],m[1],m[2]);p.x=q[0];p.z=q[1]}else if(p.k==='gt'){p.x=GATE[0];p.z=GATE[1]}else console.warn('sem local:',p.k)})}
 function dia2(){const a=aguas();
  sd.car=Math.max(0,sd.car+(a?2.5:.8)+resist*.3);if(sd.car>60){sd.tri=Math.min(40,sd.tri+5);toast('Tristeza parasitária: febre, anemia, urina escura. Carrapato alto!')}else sd.tri=Math.max(0,sd.tri-2);
@@ -544,7 +572,7 @@ function wanUpdate(dt){const px=cam.position.x,pz=cam.position.z,tn=performance.
  herd.forEach(c=>{if(c.state!=='idle'){c.g.rotation.x=0;c.g.rotation.z=0}});
  calves.forEach((c,i)=>{c.g.rotation.x=Math.sin(tn*1.3+i*2)*.02})}
 const LAMB=[];for(let k=0;k<24;k++){const a=wan('sheep',0,0,{x0:0,x1:1,z0:0,z1:1});a.g.scale.set(.6,.6,.6);a.g.visible=false;a.off=true;a.r=.4;LAMB.push(a)}
-function layLambs(){const AR=[[90,99,29.5,40],[76,87,43,53],[89.5,100,43,53]],cnt=[0,0,0];
+function layLambs(){const AR=[[95.6,100.2,28.9,33.6],[76,87,43,53],[89.5,100,43,53]],cnt=[0,0,0];
  LOTEC.forEach((c,i)=>{const a=LAMB[i];if(!a)return;const f=fase(c),n=cnt[f]++;
   if(a.off||a.ph!==f){const r=AR[f],p0=P(APR,r[0],r[2]),p1=P(APR,r[1],r[3]);a.wb={x0:Math.min(p0[0],p1[0]),x1:Math.max(p0[0],p1[0]),z0:Math.min(p0[1],p1[1]),z1:Math.max(p0[1],p1[1])};const q=P(APR,r[0]+(n%4)*(r[1]-r[0])/4+1,r[2]+(Math.floor(n/4)%3)*(r[3]-r[2])/3+1);a.x=q[0];a.z=q[1];a.tg=null;a.ph=f;a.g.position.set(a.x,0,a.z)}
   a.off=false;a.g.visible=true});
@@ -554,9 +582,9 @@ function loteUp(dt){LOTE.forEach(g=>{const u=g.userData,dx=u.tx-g.position.x,dz=
 let dia=1,litros=0,vendido=0,ordenhadas=0,tratos=0,vacHoje=0,mam=0,task=null,best=null,tmo;
 const $=id=>document.getElementById(id),stE=$('stats'),prE=$('prompt'),bar=$('bar'),barl=$('barl'),barf=$('barf'),toE=$('toast');
 function toast(t){toE.textContent=t;toE.style.display='block';clearTimeout(tmo);tmo=setTimeout(()=>toE.style.display='none',2800)}
-const SL=[[-6.5,19,PI/2],[-6.5,24,PI/2],[6.5,19,-PI/2],[6.5,24,-PI/2]].map(s=>{const q=P(MR,s[0],s[1]);return{x:q[0],z:q[1],ry:s[2]+PI/2,cow:null}});
-const insMR=(x,z)=>{const q=Qi(MR,x,z);return Math.abs(q[0])>4&&Math.abs(q[0])<9.2&&q[1]>16&&q[1]<28};
-const [TCX,TCZ]=P(CUR,-52,40),[FDX,FDZ]=P(CUR,-44,51),FDP=P(CUR,-44,52),MRC=P(MR,0,22);
+const SL=[];[16,28].forEach((zc,r)=>{for(let i=0;i<6;i++){const q=P(MR,-3.8+2*i,zc);SL.push({x:q[0],z:q[1],ry:r?-.55:PI-.55,cow:null})}});
+const insMR=(x,z)=>{const q=Qi(MR,x,z);return q[0]>-5.6&&q[0]<8.6&&((q[1]>12.9&&q[1]<19.1)||(q[1]>24.9&&q[1]<31.1))};
+const [TCX,TCZ]=P(CUR,-52,40),[FDX,FDZ]=P(CUR,-44,51),FDP=P(CUR,-44,52),MRC=P(MR,0,22),MRD=P(MR,-5,22);
 const litCow=c=>Math.max(1,Math.round(LIT_VACA*(c.fat||1)));
 const CPA=CP.map((p,i)=>({alt:i===0?28:18+i*2}));
 const CPF=CP.map(p=>{const g=new THREE.Group(),pole=new THREE.Mesh(new THREE.BoxGeometry(.2,3.2,.2),new THREE.MeshLambertMaterial({color:0x5e432a})),fl=new THREE.Mesh(new THREE.BoxGeometry(1.8,1,.08),new THREE.MeshLambertMaterial({color:0xcc3333}));pole.position.y=1.6;fl.position.set(.9,2.7,0);g.add(pole);g.add(fl);g.position.set(p.cx,0,p.cz+19);g.userData.fl=fl;scene.add(g);return g});
@@ -565,8 +593,8 @@ function flagsUp(){CPF.forEach((g,i)=>g.userData.fl.material.color.set(i===pqBov
 const tc=mkCow(TCX,TCZ,PI,1,0,'tronco');
 herd.forEach((c,i)=>{c.id='V'+String(i+1).padStart(2,'0');c.fat=[1.15,.95,1.05,.85,1.2,.9,1,1.1][i%8];c.tot=0;c.nd=0;c.hoje=0;c.ontem=0;const p=CP[c.pq];c.wb={x0:p.cx-16,x1:p.cx+14,z0:p.cz-16,z1:p.cz+8};Object.assign(c,{spd:1.1,pause:3.5,fq:6,bob:.04,graze:1,y0:0,wait:R()*3});c.g.rotation.order='YXZ'});flagsUp();
 const feedM=new THREE.Mesh(new THREE.BoxGeometry(7.5,.15,.6),MAT.silage);feedM.position.set(FDP[0],.78,FDP[1]);feedM.visible=false;scene.add(feedM);
-const gBg=new THREE.Mesh(new THREE.BoxGeometry(.6,1.9,.05),new THREE.MeshLambertMaterial({color:0x222222}));const GP=P(MR,-9,18.03),GP2=P(MR,-9,18.06);gBg.position.set(GP[0],1.15,GP[1]);gBg.rotation.y=PI/2;scene.add(gBg);
-const gL=new THREE.Mesh(new THREE.BoxGeometry(.5,1,.06),new THREE.MeshLambertMaterial({color:0xffffff}));gL.rotation.y=PI/2;scene.add(gL);
+const gBg=new THREE.Mesh(new THREE.BoxGeometry(.6,1.9,.05),new THREE.MeshLambertMaterial({color:0x222222}));const GP=P(MR,12,15.85),GP2=P(MR,12,15.9);gBg.position.set(GP[0],1.15,GP[1]);scene.add(gBg);
+const gL=new THREE.Mesh(new THREE.BoxGeometry(.5,1,.06),new THREE.MeshLambertMaterial({color:0xffffff}));scene.add(gL);
 function gauge(){const h=Math.max(.02,Math.min(1,litros/TANK_CAP)*1.8);gL.scale.y=h;gL.position.set(GP2[0],.2+h/2,GP2[1])}
 function hud(){objChk();stE.innerHTML='<b>Dia '+dia+' · '+MESES[mesAt()]+' · '+(aguas()?'águas':'seca')+'</b><br>Tanque: <b>'+litros+' L</b><br>Ordenhadas hoje: '+ordenhadas+'/'+herd.length+'<br>Tratos no cocho: '+tratos+'<br>Vacinadas hoje: '+vacHoje+'<br>Pendências: '+pf()+' · doentes: '+calves.filter(c=>c.doente).length+'<br>Mamadeiras: '+mam+'/'+calves.length+'<br>Leite recolhido: '+vendido+' L<br><small>Referência do projeto: '+LIT_VACA+' L/vaca/dia · valores de simulação</small>'}
 function lact(n){LACT=Math.max(1,Math.min(110,LACT+n));toast('Vacas em lactação: '+LACT);if($('pn').style.display==='block')painel(true);saveG()}
@@ -580,7 +608,7 @@ function painel(keep){const p=$('pn');if(p.style.display==='block'&&!keep){p.sty
  +'<div class="s">Saúde e calendário</div>Diário: caneca de fundo preto (mastite), pré e pós-dipping · Mensal: CMT · Semestral: leptospirose · Anual: raiva, clostridioses, exames de brucelose e tuberculose · Ovinos: FAMACHA e OPG'
  +'<div class="s">Reprodução</div>IATF a cada 21 dias · flushing 2–3 semanas antes da cobertura · concentrado nos últimos 45 dias de gestação<br>Nascimentos de bezerros: '+nasc+' · cordeiros abatidos: '+aba+'<div class="s">Ovinos</div>Cria '+cf(0)+' · recria '+cf(1)+' · terminação '+cf(2)+' · abate com 35 kg · desmame aos 60 dias com ~16 kg<br>Ovelhas: dia '+(ciclo()+1)+' de 200 do ciclo ('+(ciclo()<21?'flushing':ciclo()<171?'gestação'+(ciclo()>=126?' · reforço':''):'lactação')+')'
  +'<div class="s">Bezerros</div>4 L de leite por dia (mamadeira) · desmame aos 60 dias · desmamados agora: '+calves.filter(c=>c.desm).length+' de '+calves.length+' · idades: '+calves.map(c=>c.idade+'d/'+Math.round(pesoB(c))+'kg').join(', ')+'<div class="s">Pendências (E nos locais marcados)</div>'+pend2()+'<br>Realizadas: '+pdn+' · atrasadas: '+miss+'<div class="s">Saúde e condição</div>Mastite '+sd.mast+'% · verminose '+sd.verm+'% · condição corporal bovinos '+sd.cb.toFixed(1)+' · ovinos '+sd.co.toFixed(1)+' · leite por vaca hoje '+LIT_VACA+' L<div class="s">Calendário · próximos 21 dias</div>'+calend(21)+'<div class="s">Calendário sazonal</div>'+SAZ+'<div class="s">Objetivos</div>'+OBJ.map((o,i)=>(objok[i]?'✔ ':'◻ ')+o[0]).join('<br>')+consulta()+'<br><small>P fecha o painel</small>';p.style.display='block'}
-function route(c,sl){const g=CP[c.pq],d=P(MR,0,31),m=P(MR,0,26);return[{x:g.gi,z:g.gz},{x:LNX,z:g.gz},{x:LNX,z:LNZ},{x:DX,z:LNZ},{x:DX,z:DZ},{x:d[0],z:d[1]},{x:m[0],z:m[1]},{x:sl.x,z:sl.z}]}
+function route(c,sl){const g=CP[c.pq],a=P(MR,-10.5,33.5),b=P(MR,-10.5,26);return[{x:g.gi,z:g.gz},{x:LNX,z:g.gz},{x:LNX,z:LNZ},{x:a[0],z:LNZ},{x:a[0],z:a[1]},{x:b[0],z:b[1]},{x:MRD[0],z:MRD[1]},{x:sl.x,z:sl.z}]}
 function call(c){const sl=SL.find(s=>!s.cow);sl.cow=c;c.slot=sl;c.path=route(c,sl);c.after='slot';c.state='walk';toast('Vaca a caminho da sala de ordenha')}
 function startTask(label,dur,x,z,done,obj){if(task)return;task={label,dur,t:0,x,z,done,obj}}
 function endTask(){if(task&&task.obj)task.obj.g.scale.y=1;task=null;bar.style.display='none'}
@@ -619,7 +647,7 @@ function lead(c){if(fol.length>=4){toast('Máximo de 4 vacas por vez');return}c.
 function followCow(c,dt){const i=fol.indexOf(c),L=i<=0?pl:fol[i-1],gap=i<=0?2.8:2.3,dx=L.x-c.x,dz=L.z-c.z,d=Math.hypot(dx,dz);
  if(d>gap){const sp=Math.min(9,2.6+(d-gap)*.8),nx=c.x+dx/d*sp*dt,nz=c.z+dz/d*sp*dt;let mvd=false;if(!hit(nx,c.z,0,1.5,true)){c.x=nx;mvd=true}if(!hit(c.x,nz,0,1.5,true)){c.z=nz;mvd=true}c.stk=mvd?0:(c.stk||0)+dt;if(c.stk>2.5&&d>5){c.x=pl.x+Math.sin(yaw)*3;c.z=pl.z+Math.cos(yaw)*3;c.stk=0}c.ry=Math.atan2(dx,dz);c.g.rotation.y=c.ry}
  const ins=insMR(c.x,c.z);c.g.position.set(c.x,(ins?.5:0)+(d>gap?Math.abs(Math.sin(c.t*8))*.05:0),c.z);
- const qo=Qi(MR,c.x,c.z);if(qo[0]>-12&&qo[0]<12&&qo[1]>15.5&&qo[1]<28.5){const sl=SL.find(s=>!s.cow);if(sl){fol.splice(fol.indexOf(c),1);sl.cow=c;c.slot=sl;c.path=[{x:MRC[0],z:MRC[1]},{x:sl.x,z:sl.z}];c.after='slot';c.state='walk';toast('Vaca posicionada na plataforma')}}}
+ const qo=Qi(MR,c.x,c.z);if(qo[0]>-15&&qo[0]<8&&qo[1]>14&&qo[1]<30){const sl=SL.find(s=>!s.cow);if(sl){fol.splice(fol.indexOf(c),1);sl.cow=c;c.slot=sl;c.path=[{x:MRD[0],z:MRD[1]},{x:sl.x,z:sl.z}];c.after='slot';c.state='walk';toast('Vaca posicionada na plataforma')}}}
 function cupsOf(c){if(!c.cups){c.cups=new THREE.Group();[[-.15,-.95],[.15,-.95],[-.15,-.6],[.15,-.6]].forEach(p=>{const m=new THREE.Mesh(new THREE.BoxGeometry(.1,.3,.1),MAT.steel);m.position.set(p[0],.3,p[1]);c.cups.add(m)});c.g.add(c.cups)}return c.cups}
 function hubDraw(){document.body.classList.toggle('inhub',!!ms);if(!ms){hubE.style.display='none';return}const s=ms.step,L=(i,t)=>'<div style="opacity:'+(s>i?.55:1)+'">'+(s>i?'✔ ':s===i?'▶ ':'◻ ')+t+'</div>';
  hubE.style.display='block';hubE.innerHTML='<b>Hub de ordenha</b><br>'+L(0,'[1] Pré-dipping')+L(1,'[2] Secar com papel e conectar as teteiras')+L(2,'Segurar [E] para ordenhar')+L(3,'[3] Desconectar')+L(4,'[4] Pós-dipping e finalizar')+'<div class="hb"><i id="hubf"></i></div><small>Vaca <b>'+ms.c.id+'</b> · Leite: <b id="hubl">0</b> / '+litCow(ms.c)+' L · [X] cancela</small>'}

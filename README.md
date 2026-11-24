@@ -21,7 +21,7 @@ Simulador rural 3D em um único arquivo (`index.html`, Three.js r128). Abra no n
 | **Ctrl (voando)** | **descer** (perto do chão, pousa) |
 | C | agachar (Ctrl também agacha no chão) |
 | Tab | alternar 1ª, 3ª e 2ª pessoa |
-| E | interagir; entra e sai do **trator** (galpão de máquinas) e da **picape** (perto da entrada, ao lado do portão); WASD dirige, Shift acelera |
+| E | interagir; entra e sai do **trator** (galpão de máquinas) e da **picape** (ao lado da casa sede); WASD dirige, Shift acelera |
 | F / G | mandar vaca sozinha / soltar vacas |
 | Q ou clique | soco |
 | N | novo dia |
@@ -34,8 +34,14 @@ Simulador rural 3D em um único arquivo (`index.html`, Three.js r128). Abra no n
 - **Voar** liga o voo; **Subir** e **Descer** aparecem enquanto você voa.
 - Botões F, G, N, Painel, Info e Menu na faixa superior.
 
-## Layout da fazenda (vista aérea)
-Estrada asfaltada à esquerda; galpão de ração com silo no topo; free stall e sala de ordenha lado a lado, com pista de trato entre eles; galpão de feno; casa sede; curral, bezerreiro e aprisco em fileira; galpão de máquinas com trator e uma picape azul estacionada perto do portão; açude; milharais, campo de sorgo e campo de Tifton 85 (feno); 6 piquetes de bovinos e 10 piquetes de ovinos à direita.
+## Layout da fazenda (vista aérea, conforme os slides)
+Estrada asfaltada à esquerda, com árvores e o caminhão de coleta de leite. De cima para baixo:
+- **Sala de ordenha** ao norte, alinhada com a pista de trato: sala de espera, ordenha em **espinha de peixe** (12 vagas), sala do tanque de resfriamento e farmácia/depósito.
+- **Free stall** em duas alas com a **pista de trato** no centro: 2 fileiras de camas por ala (14 camas por fileira, 56 no total), 4 bebedouros e ventiladores. Ao lado, o **galpão de ração** com silo. O galpão de feno e a silagem ficam mais ao leste.
+- **Casa sede** com quintal cercado, **picape vermelha** e 2 **quadriciclos** ao lado.
+- **Curral** (coberto, com tronco), **bezerreiro** e **aprisco** em fileira. O aprisco tem baias, corredor central, creep feeding, bebedouros e solário.
+- **Galpão de máquinas** com trator verde e grade, e **açude com lona**, cercado.
+- Milharais ao sul; campo de sorgo e de Tifton 85 (feno), 6 piquetes de bovinos e 10 de ovinos à direita.
 
 ## O que o jogo cobre
 - **Leite:** 18 L/vaca/dia (referência), ordenha em etapas (pré-dipping, teteiras, ordenha, pós-dipping), tanque, 1 kg de concentrado a cada 3 L acima de 8 L/dia, produção individual (V01 a V08) e diária, vacas em lactação configuráveis.
